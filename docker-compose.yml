@@ -69,6 +69,23 @@ services:
       - microservice-net
     restart: unless-stopped
 
+  mysql:
+    container_name: mysql
+    image: mysql:8.0.34 # Confirmed stable version
+    ports:
+      - "3306:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: order-service
+
+
+    networks:
+      - microservice-net
+    restart: unless-stopped
+    volumes:
+      - mysql:/var/lib/mysql
+
+
 networks:
   microservice-net:
     driver: bridge
@@ -77,3 +94,4 @@ volumes:
   postgres:
   pgadmin:
   mongo:
+  mysql:
